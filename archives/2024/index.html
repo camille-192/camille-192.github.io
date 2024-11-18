@@ -10,6 +10,38 @@
 <head>
   <meta charset="utf-8">
   <script src="/js/sakuraPlus.js"></script>
+  <style>
+    .snowflake {
+            position: absolute;
+            top: 0;
+            color: paleturquoise;
+            
+            pointer-events: none;
+            animation: fall 5s linear forwards;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(calc(100vh - 100%)); /* 从当前位置掉落到视口底部 */
+                opacity: 0;
+            }
+        }
+  </style>
+  <script>
+    document.addEventListener('click', function(event) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.innerHTML = '❄'; // 雪花符号
+        snowflake.style.fontSize= `${Math.random() * 30 + 10}px`;
+        snowflake.style.left = `${event.clientX}px`;
+        snowflake.style.top = `${event.clientY + window.scrollY}px`; // 计算滚动位置
+        document.body.appendChild(snowflake);
+
+        // 在雪花掉落后移除它
+        snowflake.addEventListener('animationend', function() {
+            snowflake.remove();
+        });
+    });
+</script>
   
   
   
