@@ -186,6 +186,13 @@
 
     
       
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Re/" rel="tag">Re</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/WEB/" rel="tag">WEB</a></li></ul>
+    </div>
+  </div>
+
 
     
       
@@ -196,7 +203,7 @@
       
         <a class="archive-link" href="/archives/2025/05 ">
           五月 2025 
-          <div class="archive-count">3 </div>
+          <div class="archive-count">2 </div>
         </a>
       
         <a class="archive-link" href="/archives/2024/11 ">
@@ -215,21 +222,15 @@
       <h3 class="widget-title">最新文章</h3>
       <ul>
         
-          <a class="recent-link" href="/2025/05/07/Web%E5%91%A8%E6%8A%A5%E2%80%94SQL%E6%B3%A8%E5%85%A5/" title="" >
+          <a class="recent-link" href="/2025/05/10/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" title="Re周报-动态调试" >
             <div class="recent-link-text">
-              (no title)
+              Re周报-动态调试
             </div>
           </a>
         
-          <a class="recent-link" href="/2025/05/06/test/" title="test" >
+          <a class="recent-link" href="/2025/05/06/WEB%E5%91%A8%E6%8A%A5-SSRF/" title="WEB周报-SSRF" >
             <div class="recent-link-text">
-              test
-            </div>
-          </a>
-        
-          <a class="recent-link" href="/2025/05/06/Web%E5%91%A8%E6%8A%A5-SQL%E6%B3%A8%E5%85%A5/" title="" >
-            <div class="recent-link-text">
-              (no title)
+              WEB周报-SSRF
             </div>
           </a>
         
@@ -252,7 +253,7 @@
    
 
 
-<article id="post-Web周报—SQL注入" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-Re周报-动态调试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -263,7 +264,7 @@
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2025/05/07/Web%E5%91%A8%E6%8A%A5%E2%80%94SQL%E6%B3%A8%E5%85%A5/">无标题</a>
+        <a class="p-name article-title" href="/2025/05/10/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">Re周报-动态调试</a>
       </h1>
     
   
@@ -271,7 +272,7 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2025-05-07T13:03:28.384Z" itemprop="datePublished">2025-05-07</time>
+  <time class="dt-published" datetime="2025-05-10T11:01:20.000Z" itemprop="datePublished">2025-05-10</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -282,16 +283,26 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            0 词 
+            1.4k 词 
           </div>
         </div>
         
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Re/" rel="tag">Re</a></li></ul>
+
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              
+              知识点动态调试的本质是在程序运行中对其行为进行观察、控制和修改，从而更好地理解程序或发现问题。
+目的：查找定位bug、分析未知程序、破解加密算法、观察运行中变量的变化等
+题目NSSCTF-[BJDCTF 2020]Easy（调用未引用函数）DIE
+
+
+IDA打开
+
+
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#main函数无关键函数引用，静态分析找到关键函数ques（打印字符），但是关键函数没有被调用int ques()&#123;  int v0; // edx  int result; // eax  int v2[50]; // [esp+20h] [ebp-128h] BYREF  int v3; // [esp+E8h] [ebp-60h]  int v4[10]; // [esp+ECh] [ebp-5Ch]  int j; // [esp+114h] [ebp-34h]  __int64 v6...
             
           </div>
         
@@ -303,7 +314,7 @@
      
     <a class="right-panel  non-pic  "
       
-      href="/2025/05/07/Web%E5%91%A8%E6%8A%A5%E2%80%94SQL%E6%B3%A8%E5%85%A5/" 
+      href="/2025/05/10/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -323,7 +334,7 @@
    
 
 
-<article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-WEB周报-SSRF" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
     <div class="article-main">
@@ -334,7 +345,7 @@
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2025/05/06/test/">test</a>
+        <a class="p-name article-title" href="/2025/05/06/WEB%E5%91%A8%E6%8A%A5-SSRF/">WEB周报-SSRF</a>
       </h1>
     
   
@@ -353,16 +364,20 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            0 词 
+            110 词 
           </div>
         </div>
         
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WEB/" rel="tag">WEB</a></li></ul>
+
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              
+              CTFshow刷题日记-WEB-SSRF（web351-360）SSRF总结_ctf ssrf题型总结-CSDN博客
+CTFHub技能树 Web-SSRF篇（保姆级通过教程）_gopherus安装-CSDN博客
+前置知识题目练习
             
           </div>
         
@@ -374,90 +389,7 @@
      
     <a class="right-panel  non-pic  "
       
-      href="/2025/05/06/test/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-   
-
-
-<article id="post-Web周报-SQL注入" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2025/05/06/Web%E5%91%A8%E6%8A%A5-SQL%E6%B3%A8%E5%85%A5/">无标题</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2025-05-06T12:58:33.557Z" itemprop="datePublished">2025-05-06</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    未分类 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            14k 词 
-          </div>
-        </div>
-        
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              知识点sqlmap链接：https://sqlmap.org/
-windows安装zip格式，Linux下载.tar.gz格式
-python sqlmap.py检查安装
-sqlmap参数：https://blog.csdn.net/weixin_68416970/article/details/138974168
-目标注入点：http://127.0.0.1/sqli-labs-master/Less-1/
-判断是否存在注入：
-1python3 sqlmap.py -u &quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot;
-
-查看数据库用户：
-1python3 sqlmap.py -u &quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot; --current-user
-
-查看所有数据库：
-1python3 sqlmap.py -u &quot;http://127.0.0.1/sqli-labs-master/Less-1/?id=1&quot; --d...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2025/05/06/Web%E5%91%A8%E6%8A%A5-SQL%E6%B3%A8%E5%85%A5/" 
+      href="/2025/05/06/WEB%E5%91%A8%E6%8A%A5-SSRF/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

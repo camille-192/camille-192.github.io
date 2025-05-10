@@ -47,21 +47,32 @@
   
 
   
-  <title>test | Camille&#39;s Blog</title>
+  <title>Re周报-动态调试 | Camille&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://camille-192.github.io/2025/05/06/test/index.html">
+  <meta name="description" content="知识点动态调试的本质是在程序运行中对其行为进行观察、控制和修改，从而更好地理解程序或发现问题。 目的：查找定位bug、分析未知程序、破解加密算法、观察运行中变量的变化等 题目NSSCTF-[BJDCTF 2020]Easy（调用未引用函数）DIE   IDA打开   123456789101112131415161718192021222324252627282930313233343536373">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Re周报-动态调试">
+<meta property="og:url" content="https://camille-192.github.io/2025/05/10/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/index.html">
 <meta property="og:site_name" content="Camille&#39;s Blog">
+<meta property="og:description" content="知识点动态调试的本质是在程序运行中对其行为进行观察、控制和修改，从而更好地理解程序或发现问题。 目的：查找定位bug、分析未知程序、破解加密算法、观察运行中变量的变化等 题目NSSCTF-[BJDCTF 2020]Easy（调用未引用函数）DIE   IDA打开   123456789101112131415161718192021222324252627282930313233343536373">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-05-06T13:47:32.000Z">
-<meta property="article:modified_time" content="2025-05-06T13:47:32.241Z">
+<meta property="og:image" content="https://camille-192.github.io/2025/05/10/images/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.assets/capture_20250510210734201.bmp">
+<meta property="og:image" content="https://camille-192.github.io/2025/05/10/images/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.assets/capture_20250510210901623.bmp">
+<meta property="og:image" content="https://camille-192.github.io/2025/05/10/images/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.assets/capture_20250510215948336.bmp">
+<meta property="og:image" content="https://camille-192.github.io/2025/05/10/images/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.assets/capture_20250510215328203-1746888072314-7.bmp">
+<meta property="og:image" content="https://camille-192.github.io/2025/05/10/images/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.assets/capture_20250510215144155.bmp">
+<meta property="og:image" content="https://camille-192.github.io/2025/05/10/images/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.assets/capture_20250510215328203.bmp">
+<meta property="og:image" content="https://camille-192.github.io/2025/05/10/images/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.assets/capture_20250510215300250.bmp">
+<meta property="article:published_time" content="2025-05-10T11:01:20.000Z">
+<meta property="article:modified_time" content="2025-05-10T14:41:41.806Z">
 <meta property="article:author" content="Camille">
+<meta property="article:tag" content="Re">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://camille-192.github.io/2025/05/10/images/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.assets/capture_20250510210734201.bmp">
   
     <link rel="alternate" href="/atom.xml" title="Camille's Blog" type="application/atom+xml">
   
@@ -188,6 +199,13 @@
 
     
       
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Re/" rel="tag">Re</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/WEB/" rel="tag">WEB</a></li></ul>
+    </div>
+  </div>
+
 
     
       
@@ -198,7 +216,7 @@
       
         <a class="archive-link" href="/archives/2025/05 ">
           五月 2025 
-          <div class="archive-count">3 </div>
+          <div class="archive-count">2 </div>
         </a>
       
         <a class="archive-link" href="/archives/2024/11 ">
@@ -217,21 +235,15 @@
       <h3 class="widget-title">最新文章</h3>
       <ul>
         
-          <a class="recent-link" href="/2025/05/07/Web%E5%91%A8%E6%8A%A5%E2%80%94SQL%E6%B3%A8%E5%85%A5/" title="" >
+          <a class="recent-link" href="/2025/05/10/Re%E5%91%A8%E6%8A%A5-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" title="Re周报-动态调试" >
             <div class="recent-link-text">
-              (no title)
+              Re周报-动态调试
             </div>
           </a>
         
-          <a class="recent-link" href="/2025/05/06/test/" title="test" >
+          <a class="recent-link" href="/2025/05/06/WEB%E5%91%A8%E6%8A%A5-SSRF/" title="WEB周报-SSRF" >
             <div class="recent-link-text">
-              test
-            </div>
-          </a>
-        
-          <a class="recent-link" href="/2025/05/06/Web%E5%91%A8%E6%8A%A5-SQL%E6%B3%A8%E5%85%A5/" title="" >
-            <div class="recent-link-text">
-              (no title)
+              WEB周报-SSRF
             </div>
           </a>
         
@@ -253,7 +265,7 @@
        
 
 
-<article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-Re周报-动态调试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
    
@@ -266,7 +278,7 @@
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        test
+        Re周报-动态调试
       </h1>
     
   
@@ -274,7 +286,7 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2025-05-06T13:47:32.000Z" itemprop="datePublished">2025-05-06</time>
+  <time class="dt-published" datetime="2025-05-10T11:01:20.000Z" itemprop="datePublished">2025-05-10</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -285,14 +297,43 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            0 词 
+            1.4k 词 
           </div>
         </div>
         
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Re/" rel="tag">Re</a></li></ul>
+
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          
+          <h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><p>动态调试的本质是在程序运行中对其行为进行观察、控制和修改，从而更好地理解程序或发现问题。</p>
+<p>目的：查找定位bug、分析未知程序、破解加密算法、观察运行中变量的变化等</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="NSSCTF-BJDCTF-2020-Easy（调用未引用函数）"><a href="#NSSCTF-BJDCTF-2020-Easy（调用未引用函数）" class="headerlink" title="NSSCTF-[BJDCTF 2020]Easy（调用未引用函数）"></a>NSSCTF-[BJDCTF 2020]Easy（调用未引用函数）</h2><p>DIE</p>
+<img src="../images/Re周报-动态调试.assets/capture_20250510210734201.bmp" alt="capture_20250510210734201" style="zoom:50%;" />
+
+<p>IDA打开</p>
+<img src="../images/Re周报-动态调试.assets/capture_20250510210901623.bmp" alt="capture_20250510210901623" style="zoom:50%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#main函数无关键函数引用，静态分析找到关键函数ques（打印字符），但是关键函数没有被调用</span><br><span class="line">int ques()</span><br><span class="line">&#123;</span><br><span class="line">  int v0; // edx</span><br><span class="line">  int result; // eax</span><br><span class="line">  int v2[50]; // [esp+20h] [ebp-128h] BYREF</span><br><span class="line">  int v3; // [esp+E8h] [ebp-60h]</span><br><span class="line">  int v4[10]; // [esp+ECh] [ebp-5Ch]</span><br><span class="line">  int j; // [esp+114h] [ebp-34h]</span><br><span class="line">  __int64 v6; // [esp+118h] [ebp-30h]</span><br><span class="line">  int v7; // [esp+124h] [ebp-24h]</span><br><span class="line">  int v8; // [esp+128h] [ebp-20h]</span><br><span class="line">  int i; // [esp+12Ch] [ebp-1Ch]</span><br><span class="line"></span><br><span class="line">  v3 = 2147122737;</span><br><span class="line">  v4[0] = 0x224FC;</span><br><span class="line">  v4[1] = 0x884A4239;</span><br><span class="line">  v4[2] = 0x22A84;</span><br><span class="line">  v4[3] = 0x84FF235;</span><br><span class="line">  v4[4] = 0x3FF87;</span><br><span class="line">  v4[5] = 0x88424233;</span><br><span class="line">  v4[6] = 0x23185;</span><br><span class="line">  v4[7] = 0x7E4243F1;</span><br><span class="line">  v4[8] = 0x231FC;</span><br><span class="line">  for ( i = 0; i &lt;= 4; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    memset(v2, 0, sizeof(v2));</span><br><span class="line">    v8 = 0;</span><br><span class="line">    v7 = 0;</span><br><span class="line">    v0 = v4[2 * i];</span><br><span class="line">    LODWORD(v6) = v4[2 * i - 1];</span><br><span class="line">    HIDWORD(v6) = v0;</span><br><span class="line">    while ( v6 &gt; 0 )</span><br><span class="line">    &#123;</span><br><span class="line">      v2[v8++] = v6 % 2;</span><br><span class="line">      v6 /= 2LL;</span><br><span class="line">    &#125;</span><br><span class="line">    for ( j = 50; j &gt;= 0; --j )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( v2[j] )</span><br><span class="line">      &#123;</span><br><span class="line">        if ( v2[j] == 1 )</span><br><span class="line">        &#123;</span><br><span class="line">          putchar(42);</span><br><span class="line">          ++v7;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      else</span><br><span class="line">      &#123;</span><br><span class="line">        putchar(32);</span><br><span class="line">        ++v7;</span><br><span class="line">      &#125;</span><br><span class="line">      if ( !(v7 % 5) )</span><br><span class="line">        putchar(32);</span><br><span class="line">    &#125;</span><br><span class="line">    result = putchar(10);</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在main函数中ques函数未被执行前下断点</p>
+<img src="../images/Re周报-动态调试.assets/capture_20250510215948336.bmp" alt="capture_20250510215948336" style="zoom:50%;" />
+
+<p>call函数的本质是跳转到一个地址，在执行这串代码的时候会跳转到main函数区域，现在让它直接跳转到ques函数区域执行</p>
+<img src="../images/Re周报-动态调试.assets/capture_20250510215328203-1746888072314-7.bmp" alt="capture_20250510215328203" style="zoom:50%;" />
+
+<p>ques函数的地址</p>
+<img src="../images/Re周报-动态调试.assets/capture_20250510215144155.bmp" alt="capture_20250510215144155" style="zoom:50%;" />
+
+<p>ctrl+g将此处设为新的eip</p>
+<img src="../images/Re周报-动态调试.assets/capture_20250510215328203.bmp" alt="capture_20250510215328203" style="zoom:50%;" />
+
+<p>继续运行得到flag{HACKIT4FUN}</p>
+<img src="../images/Re周报-动态调试.assets/capture_20250510215300250.bmp" alt="capture_20250510215300250" style="zoom:50%;" />
+
+<h2 id="NSSCTF-HNCTF-2022-Week1-CrackMe-匹配绕过"><a href="#NSSCTF-HNCTF-2022-Week1-CrackMe-匹配绕过" class="headerlink" title="NSSCTF-[HNCTF 2022 Week1]CrackMe(匹配绕过)"></a>NSSCTF-[HNCTF 2022 Week1]CrackMe(匹配绕过)</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_73113840/article/details/137482011">ctf逆向动调调试技巧学习及总结_逆向动态调试-CSDN博客</a></p>
+<h2 id="NSSCTF-SWPUCTF-2024-秋季新生赛-动态调试"><a href="#NSSCTF-SWPUCTF-2024-秋季新生赛-动态调试" class="headerlink" title="NSSCTF-[SWPUCTF 2024 秋季新生赛]动态调试"></a>NSSCTF-[SWPUCTF 2024 秋季新生赛]动态调试</h2><h2 id="BUUCTF-SWPU2019-ReverseMe"><a href="#BUUCTF-SWPU2019-ReverseMe" class="headerlink" title="BUUCTF-[SWPU2019]ReverseMe"></a>BUUCTF-[SWPU2019]ReverseMe</h2><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2320379">https://cloud.tencent.com/developer/article/2320379</a></p>
+
         
       </div>
 
@@ -304,27 +345,22 @@
   
     
 <nav id="article-nav">
-  <a class="article-nav-btn left "
-    
-      href="/2025/05/07/Web%E5%91%A8%E6%8A%A5%E2%80%94SQL%E6%B3%A8%E5%85%A5/"
-      title=""
+  <a class="article-nav-btn left  disabled "
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
-      
-        (No Title)
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/2025/05/06/Web%E5%91%A8%E6%8A%A5-SQL%E6%B3%A8%E5%85%A5/"
-      title=""
+      href="/2025/05/06/WEB%E5%91%A8%E6%8A%A5-SSRF/"
+      title="WEB周报-SSRF"
      >
 
     <p class="title-text">
       
-        (No Title)
+        WEB周报-SSRF
         
     </p>
     <i class="fa-solid fa-angle-right"></i>
