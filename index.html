@@ -283,7 +283,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            1.4k 词 
+            7.7k 词 
           </div>
         </div>
         
@@ -296,13 +296,14 @@
             
               知识点动态调试的本质是在程序运行中对其行为进行观察、控制和修改，从而更好地理解程序或发现问题。
 目的：查找定位bug、分析未知程序、破解加密算法、观察运行中变量的变化等
+内存&#x2F;寄存器&#x2F;堆栈
 题目NSSCTF-[BJDCTF 2020]Easy（调用未引用函数）DIE
 
 
 IDA打开
 
 
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#main函数无关键函数引用，静态分析找到关键函数ques（打印字符），但是关键函数没有被调用int ques()&#123;  int v0; // edx  int result; // eax  int v2[50]; // [esp+20h] [ebp-128h] BYREF  int v3; // [esp+E8h] [ebp-60h]  int v4[10]; // [esp+ECh] [ebp-5Ch]  int j; // [esp+114h] [ebp-34h]  __int64 v6...
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#main函数无关键函数引用，静态分析找到关键函数ques（打印字符），但是关键函数没有被调用int ques()&#123;  int v0; // edx  int result; // eax  int v2[50]; // [esp+20h] [ebp-128h] BYREF  int v3; // [esp+E8h] [ebp-60h]  int v4[10]; // [esp+ECh] [ebp-5Ch]  int j; // [esp+114h] [...
             
           </div>
         
@@ -364,7 +365,7 @@ IDA打开
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            110 词 
+            4.9k 词 
           </div>
         </div>
         
@@ -375,9 +376,40 @@ IDA打开
         
           <div class="truncate-text">
             
-              CTFshow刷题日记-WEB-SSRF（web351-360）SSRF总结_ctf ssrf题型总结-CSDN博客
-CTFHub技能树 Web-SSRF篇（保姆级通过教程）_gopherus安装-CSDN博客
-前置知识题目练习
+              CTFHub技能树 Web-SSRF篇（保姆级通过教程）_gopherus安装-CSDN博客
+知识点服务器接受了来自于客户端的URL 地址，并由服务器发送该URL 请求。
+原理：对用户输入的URL 没有进行恰当的过滤，导致任意URL 输入。没对响应的结果进行检验，直接输出。
+题 目-CTFHUB一内网访问
+
+构建url得到flag
+1/?url=127.0.0.1/flag.php
+
+ctfhub{dce51d0167c310532175beb7}
+伪协议读取文件
+
+直接访问是读取不到的：
+
+
+什么是url伪协议？让php脚本通过一种特殊的url语法来访问获取各种资源
+0x10类型：
+表格 还在加载中，请等待加载完成后再尝试复制
+使用第一种类型，（web目录默认var/www/html）构造payload：
+1/?url=file:///var/www/html/flag.php
+
+查看源码得到flag ctfhub{057fad31ddad72bac2ec5c55}：
+
+
+端口扫描
+
+端口范围是8000-9000，bp爆破Intruder：
+
+
+
+
+得到端口：8097
+
+
+构造...
             
           </div>
         
